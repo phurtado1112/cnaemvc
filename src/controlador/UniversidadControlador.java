@@ -163,6 +163,7 @@ public class UniversidadControlador {
                 }
             }
         }
+        
         if (ev.getSource() == frmUniv.btnActualizar) {
             if (validar() == true) {
                 int i = JOptionPane.showConfirmDialog(null, "¿Seguro desea ACTUALIZAR?", "Confirmar",
@@ -181,6 +182,7 @@ public class UniversidadControlador {
                 }
             }
         }
+        
         if (ev.getSource() == frmUniv.btnEliminar) {
             int i = JOptionPane.showConfirmDialog(null, "¿Seguro desea ELIMINAR?", "Confirmar",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
@@ -195,6 +197,7 @@ public class UniversidadControlador {
             Deshabilitar();
             BotonesInicio();
         }
+        
         if (ev.getSource() == frmUniv.btnCancelar) {
             limpiar();
             Deshabilitar();

@@ -61,17 +61,43 @@ public class ActividadDaoImpl implements ActividadDao {
 
     @Override
     public void eliminarActividad(Actividad a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            sesion.delete(a);
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
     }
 
     @Override
     public Actividad obtenActividad(int idactividad) throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Actividad actividad = null;
+        try {
+            iniciaOperacion();
+            actividad = (Actividad) sesion.get(Actividad.class, idactividad);
+        } finally {
+            sesion.close();
+        }
+
+        return actividad;
     }
 
     @Override
     public List<Actividad> obtenListaActividades() throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Actividad> listaActividades = null;
+
+        try {
+            iniciaOperacion();
+            listaActividades = sesion.createQuery("from Actividad").list();
+        } finally {
+            sesion.close();
+        }
+
+        return listaActividades;
     }
     
 }
