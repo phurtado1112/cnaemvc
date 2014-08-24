@@ -1,124 +1,16 @@
 package vista;
 
-import clases.Actividad;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import util.Conecta;
-import util.Valida;
-
 /**
  *
  * @author PabloAntonio
  */
 public class ActividadIF extends javax.swing.JInternalFrame {
 
-    DefaultTableModel model;
-    Conecta cnx = new Conecta();
-    Valida va = new Valida();
-    Actividad a = new Actividad();
-    Statement stm;
-    PreparedStatement ps;
-    ResultSet rs;
-
     /**
      * Creates new form ActividadIF
      */
     public ActividadIF() {
         initComponents();
-        cnx.Conecta();
-        Deshabilitar();
-        LlenarTabla();
-        BotonesInicio();
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    }
-
-    public void limpiar() {
-        txtActividad.setText("");
-    }
-
-    private void Deshabilitar() {
-        txtActividad.setEnabled(false);
-    }
-
-    public void Habilitar() {
-        txtActividad.setEnabled(true);
-        va.SoloLetras(txtActividad);
-        va.SeleccionarTodo(txtActividad);
-        txtActividad.requestFocus();
-    }
-
-    private void BotonesInicio() {
-        btnNuevo.setEnabled(true);
-        btnActualizar.setEnabled(false);
-        btnEliminar.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        btnCancelar.setEnabled(false);
-    }
-
-    private void BotonesNuevo() {
-        btnNuevo.setEnabled(false);
-        btnActualizar.setEnabled(false);
-        btnEliminar.setEnabled(false);
-        btnGuardar.setEnabled(true);
-        btnCancelar.setEnabled(true);
-    }
-
-    private void BotonesClick() {
-        btnNuevo.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        btnActualizar.setEnabled(true);
-        btnCancelar.setEnabled(true);
-        btnEliminar.setEnabled(true);
-    }
-
-    private void LlenarTabla() {
-        int[] anchos = {20, 300};
-        cnx.Conecta();
-        try {
-            String[] titulos = {"ID", "Actividad"};
-            String SQL = "Select * from actividad";
-            model = new DefaultTableModel(null, titulos);
-            ps = cnx.conn.prepareStatement(SQL);
-            rs = ps.executeQuery();
-            String[] fila = new String[2];
-            while (rs.next()) {
-                fila[0] = rs.getString("idactividad");
-                fila[1] = rs.getString("actividad");
-                model.addRow(fila);
-            }
-            tblActividad.setModel(model);
-            for (int i = 0; i < tblActividad.getColumnCount(); i++) {
-                tblActividad.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error LlenarTabla Actividad: " + e.getMessage());
-        } finally {
-            cnx.Desconecta();
-        }
-    }
-
-    private boolean validar() {
-        boolean val;
-        if (txtActividad.getText().trim().length() == 0) { //Valida campo Nombre
-            JOptionPane.showMessageDialog(this, "El campo de texto Tipo Actividad está vacío,por favor llenarlo");
-            val = false;
-        } else if (a.validarRegistro(txtActividad.getText().trim()) > 0) {
-            JOptionPane.showMessageDialog(null, "Ya existe una actividad con el nombre:\n"
-                    + txtActividad.getText().trim() + "");
-            limpiar();
-            txtActividad.requestFocus();
-            val = false;
-        } else {
-            val = true;
-        }
-        return val;
     }
 
     /**
@@ -151,46 +43,16 @@ public class ActividadIF extends javax.swing.JInternalFrame {
         setVisible(true);
 
         btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
 
         btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
 
         btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
 
         btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
 
         btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
 
         btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Actividades"));
 
@@ -251,11 +113,6 @@ public class ActividadIF extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblActividad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblActividadMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tblActividad);
         if (tblActividad.getColumnModel().getColumnCount() > 0) {
             tblActividad.getColumnModel().getColumn(0).setResizable(false);
@@ -304,96 +161,6 @@ public class ActividadIF extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        Habilitar();
-        limpiar();
-        BotonesNuevo();
-    }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (validar() == true) {
-            int i = JOptionPane.showConfirmDialog(null, "Desea Actualizar?", "Confirmar",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (i == JOptionPane.OK_OPTION) {
-                int fila = tblActividad.getSelectedRow();
-                String nombreactividad=txtActividad.getText().trim();               
-                a.setActividad(nombreactividad.replace(nombreactividad.charAt(0),Character.toUpperCase(nombreactividad.charAt(0))));
-                a.setIdactividad(Integer.parseInt(this.tblActividad.getValueAt(fila, 0).toString()));
-                a.ActualizarActividad();
-            }
-            LlenarTabla();
-            limpiar();
-            Deshabilitar();
-            BotonesInicio();
-        }
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int i = JOptionPane.showConfirmDialog(null, "Desea Eliminar?", "Confirmar",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-        if (i == JOptionPane.OK_OPTION) {
-            int fila = tblActividad.getSelectedRow();
-            a.setIdactividad(Integer.parseInt(tblActividad.getValueAt(fila, 0).toString()));
-            a.EliminarActividad();
-        }
-        limpiar();
-        Deshabilitar();
-        LlenarTabla();
-        BotonesInicio();
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (validar() == true) {
-            int i = JOptionPane.showConfirmDialog(null, "Desea Guardar?", "Confirmar",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-            if (i == JOptionPane.OK_OPTION) {
-                String nombreactividad=txtActividad.getText().trim();               
-                a.setActividad(nombreactividad.replace(nombreactividad.charAt(0),Character.toUpperCase(nombreactividad.charAt(0))));
-                a.GuardarActividad();
-            }
-            LlenarTabla();
-            limpiar();
-            Deshabilitar();
-            BotonesInicio();
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpiar();
-        Deshabilitar();
-        LlenarTabla();
-        BotonesInicio();
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        int i = JOptionPane.showConfirmDialog(null, "Desea Salir?", "Confirmar",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-        if (i == JOptionPane.OK_OPTION) {
-            this.doDefaultCloseAction();
-        }
-    }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void tblActividadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblActividadMouseClicked
-        if (evt.getButton() == 1) {
-            int fila = tblActividad.getSelectedRow();
-            cnx.Conecta();
-            try {
-                Habilitar();
-                String SQL = "Select * from actividad where idactividad = " + tblActividad.getValueAt(fila, 0);
-                stm = cnx.conn.createStatement();
-                rs = stm.executeQuery(SQL);
-
-                rs.next();
-                txtActividad.setText(rs.getString("actividad"));
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error Actividad Mouse Cliked: " + e.getMessage());
-            } finally {
-                BotonesClick();
-                cnx.Desconecta();
-            }
-        }
-    }//GEN-LAST:event_tblActividadMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnActualizar;

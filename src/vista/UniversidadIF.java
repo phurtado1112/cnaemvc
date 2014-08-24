@@ -4,8 +4,6 @@
  */
 package vista;
 
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author PabloAntonio

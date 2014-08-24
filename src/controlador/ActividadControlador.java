@@ -14,7 +14,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Actividad;
-import modelo.Universidad;
 import util.Valida;
 import vista.ActividadIF;
 
@@ -25,11 +24,12 @@ import vista.ActividadIF;
 public class ActividadControlador {
     ActividadIF frmActi;
     ActividadDaoImpl adi;
-    Actividad act;
+    Actividad act = new Actividad();
     Valida va = new Valida();
     DefaultTableModel modelo;
 
     public ActividadControlador() {
+        
     }
 
     public ActividadControlador(ActividadIF frmActi, ActividadDaoImpl adi) {
