@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-01-2014 03:42:55 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="modelo.Asignatura" table="asignatura" catalog="cnae">
+        <id name="idasignatura" type="java.lang.Integer">
+            <column name="idasignatura" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="carrera" class="modelo.Carrera" fetch="select">
+            <column name="idcarrera" not-null="true" />
+        </many-to-one>
+        <property name="nombreA" type="string">
+            <column name="nombreA" length="45" not-null="true" />
+        </property>
+        <property name="grupo" type="string">
+            <column name="grupo" length="45" not-null="true" />
+        </property>
+        <property name="anio" type="java.lang.Integer">
+            <column name="anio" />
+        </property>
+        <property name="periodo" type="string">
+            <column name="periodo" length="45" />
+        </property>
+        <set name="estructuraevaluacions" table="estructuraevaluacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idasignatura" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Estructuraevaluacion" />
+        </set>
+        <set name="calendarios" table="calendario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idasignatura" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Calendario" />
+        </set>
+        <set name="asistencias" table="asistencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idasignatura" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Asistencia" />
+        </set>
+        <set name="notases" table="notas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idasignatura" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Notas" />
+        </set>
+        <set name="estudianteses" table="estudiantes" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idasignatura" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Estudiantes" />
+        </set>
+    </class>
+</hibernate-mapping>

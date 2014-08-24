@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-01-2014 03:42:55 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="modelo.Actividaddet" table="actividaddet" catalog="cnae">
+        <id name="idactividaddet" type="java.lang.Integer">
+            <column name="idactividaddet" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="actividad" class="modelo.Actividad" fetch="select">
+            <column name="idactividad" not-null="true" />
+        </many-to-one>
+        <property name="actividaddet" type="string">
+            <column name="actividaddet" length="45" not-null="true" />
+        </property>
+        <set name="notases" table="notas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idactividaddet" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Notas" />
+        </set>
+        <set name="estructuraevaluacions" table="estructuraevaluacion" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idactividaddet" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Estructuraevaluacion" />
+        </set>
+        <set name="calendarios" table="calendario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idactividaddet" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Calendario" />
+        </set>
+    </class>
+</hibernate-mapping>

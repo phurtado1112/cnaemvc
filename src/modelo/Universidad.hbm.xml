@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-01-2014 03:42:55 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="modelo.Universidad" table="universidad" catalog="cnae">
+        <id name="iduniversidad" type="java.lang.Integer">
+            <column name="iduniversidad" />
+            <generator class="identity" />
+        </id>
+        <property name="nombreU" type="string">
+            <column name="nombreU" length="45" not-null="true" />
+        </property>
+        <property name="siglas" type="string">
+            <column name="siglas" length="45" />
+        </property>
+        <property name="logo" type="binary">
+            <column name="logo" />
+        </property>
+        <set name="facultads" table="facultad" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="iduniversidad" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Facultad" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 08-01-2014 03:42:55 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="modelo.Estudiantes" table="estudiantes" catalog="cnae">
+        <id name="idestudiante" type="java.lang.Integer">
+            <column name="idestudiante" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="asignatura" class="modelo.Asignatura" fetch="select">
+            <column name="idasignatura" not-null="true" />
+        </many-to-one>
+        <property name="nombreE" type="string">
+            <column name="nombreE" length="45" not-null="true" />
+        </property>
+        <property name="apellidoE" type="string">
+            <column name="apellidoE" length="45" not-null="true" />
+        </property>
+        <property name="carnet" type="string">
+            <column name="carnet" length="10" />
+        </property>
+        <property name="celular" type="java.lang.Integer">
+            <column name="celular" />
+        </property>
+        <set name="asistencias" table="asistencia" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idestudiante" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Asistencia" />
+        </set>
+        <set name="notases" table="notas" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idestudiante" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Notas" />
+        </set>
+    </class>
+</hibernate-mapping>

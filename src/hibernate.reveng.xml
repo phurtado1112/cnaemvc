@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="cnae"/>
+  <table-filter match-name="actividaddet"/>
+  <table-filter match-name="estructuraevaluacion"/>
+  <table-filter match-name="notas"/>
+  <table-filter match-name="docente"/>
+  <table-filter match-name="universidad"/>
+  <table-filter match-name="carrera"/>
+  <table-filter match-name="asignatura"/>
+  <table-filter match-name="actividad"/>
+  <table-filter match-name="calendario"/>
+  <table-filter match-name="asistencia"/>
+  <table-filter match-name="estudiantes"/>
+  <table-filter match-name="facultad"/>
+</hibernate-reverse-engineering>
