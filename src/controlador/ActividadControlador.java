@@ -59,7 +59,7 @@ public class ActividadControlador {
         });
     }
     
-    public void limpiar() {
+    private void limpiar() {
         frmActi.txtActividad.setText("");
     }
 
@@ -67,7 +67,7 @@ public class ActividadControlador {
         frmActi.txtActividad.setEnabled(false);
     }
 
-    public void Habilitar() {
+    private void Habilitar() {
         frmActi.txtActividad.setEnabled(true);
         va.SoloLetras(frmActi.txtActividad);
         va.SeleccionarTodo(frmActi.txtActividad);
@@ -109,7 +109,7 @@ public class ActividadControlador {
         return val;
     }
     
-    public void defaultTableModel() {
+    private void defaultTableModel() {
         frmActi.tblActividad.getColumnModel().getColumn(0).setPreferredWidth(15);
         frmActi.tblActividad.getColumnModel().getColumn(1).setPreferredWidth(260);
         modelo = (DefaultTableModel) frmActi.tblActividad.getModel();
@@ -198,7 +198,7 @@ public class ActividadControlador {
         
     };
     
-    public void tblActividadMouseClicked(MouseEvent e) {
+    private void tblActividadMouseClicked(MouseEvent e) {
         if( e.getButton()== 1)//boton izquierdo
         {
              int fila = frmActi.tblActividad.getSelectedRow();

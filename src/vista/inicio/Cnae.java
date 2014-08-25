@@ -40,7 +40,7 @@ public final class Cnae extends javax.swing.JFrame {
         MnuFacultades = new javax.swing.JMenuItem();
         MnuUniversidades = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
-        MenuDocente = new javax.swing.JMenuItem();
+        MnuDocente = new javax.swing.JMenuItem();
         MnuPrReportes = new javax.swing.JMenu();
         MnuRepAsistencia = new javax.swing.JMenuItem();
         MnuNotas = new javax.swing.JMenuItem();
@@ -136,9 +136,9 @@ public final class Cnae extends javax.swing.JFrame {
         MnuPrCatalogo.add(MnuUniversidades);
         MnuPrCatalogo.add(jSeparator3);
 
-        MenuDocente.setMnemonic('d');
-        MenuDocente.setText("Docente");
-        MnuPrCatalogo.add(MenuDocente);
+        MnuDocente.setMnemonic('d');
+        MnuDocente.setText("Docente");
+        MnuPrCatalogo.add(MnuDocente);
 
         jMenuBar1.add(MnuPrCatalogo);
 
@@ -243,7 +243,6 @@ public final class Cnae extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane Escritorio;
-    public javax.swing.JMenuItem MenuDocente;
     public javax.swing.JMenuItem MnuAcercaDe;
     public javax.swing.JMenuItem MnuActividad;
     public javax.swing.JMenuItem MnuActividadDet;
@@ -252,6 +251,7 @@ public final class Cnae extends javax.swing.JFrame {
     public javax.swing.JMenuItem MnuCambioAsignatura;
     public javax.swing.JMenuItem MnuCambioContrasena;
     public javax.swing.JMenuItem MnuCarreras;
+    public javax.swing.JMenuItem MnuDocente;
     public javax.swing.JMenuItem MnuEstructuraEvaluacion;
     public javax.swing.JMenuItem MnuEstudiantes;
     public javax.swing.JMenuItem MnuEvaluacion;

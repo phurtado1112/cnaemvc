@@ -38,27 +38,23 @@ public class IngresoInicialDocenteControlador {
         frmIngIniDoc.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
     
-    private final ActionListener Evento = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent ev) {
-            if (ev.getSource() == frmIngIniDoc.btnSalir) {
-                int i = JOptionPane.showConfirmDialog(null, "Desea Salir?", "Confirmar",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
-                if (i == JOptionPane.OK_OPTION) {
-                    System.exit(0);
-                }
+    private final ActionListener Evento = (ActionEvent ev) -> {
+        if (ev.getSource() == frmIngIniDoc.btnSalir) {
+            int i = JOptionPane.showConfirmDialog(null, "Desea Salir?", "Confirmar",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+            if (i == JOptionPane.OK_OPTION) {
+                System.exit(0);
             }
-
-            if (ev.getSource() == frmIngIniDoc.btnCancelar) {
-                Limpiar();
-            }
-            
-            if(ev.getSource()== frmIngIniDoc.btnGuardar){
-                GuardarDocente();
-                SesionInicioControlador sic = new SesionInicioControlador();
-                frmIngIniDoc.dispose();
-            }
+        }
+        
+        if (ev.getSource() == frmIngIniDoc.btnCancelar) {
+            Limpiar();
+        }
+        
+        if(ev.getSource()== frmIngIniDoc.btnGuardar){
+            GuardarDocente();
+            SesionInicioControlador sic = new SesionInicioControlador();
+            frmIngIniDoc.dispose();
         }
     };
 

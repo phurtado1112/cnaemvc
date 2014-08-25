@@ -31,7 +31,6 @@ public class SesionInicioControlador {
     private void inicio() {
         frmInicio.setVisible(true);
         frmInicio.setLocationRelativeTo(null);
-//        JOptionPane.showMessageDialog(null, "el valor de prueba es: " + comprobarDocente() );
         if (comprobarDocente() == false) {
             frmInicio.btnRegistro.setVisible(false);
             frmInicio.btnInicioSesion.addActionListener(Evento);
@@ -76,9 +75,7 @@ public class SesionInicioControlador {
         } else {
             try {
                 if (contrasenia.equals(ddi.obtenerContraseniaDocente(usuario))) {
-//                    SeleccionarAsignaturaControlador sa = new SeleccionarAsignaturaControlador();
                     CnaeControlador cc = new CnaeControlador();
-//                    sa.setVisible(true);
                     frmInicio.dispose();
                 }
             } catch (HibernateException e) {
@@ -97,7 +94,6 @@ public class SesionInicioControlador {
         } catch (HibernateException e) {
             JOptionPane.showMessageDialog(null, "Error Comprobar docente: " + e.getMessage());
         }
-//        JOptionPane.showMessageDialog(null, "el valor de prueba es: " + prueba );
         return prueba;
     }
 }

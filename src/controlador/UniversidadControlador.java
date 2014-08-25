@@ -22,7 +22,6 @@ import vista.UniversidadIF;
  * @author PabloAntonio
  */
 public class UniversidadControlador {
-
     UniversidadIF frmUniv ;
     UniversidadDaoImpl udi;
     Universidad univ = new Universidad();
@@ -123,7 +122,7 @@ public class UniversidadControlador {
         return val;
     }
 
-    public void defaultTableModel() {
+    private void defaultTableModel() {
         frmUniv.tblUniversidad.getColumnModel().getColumn(0).setPreferredWidth(15);
         frmUniv.tblUniversidad.getColumnModel().getColumn(1).setPreferredWidth(260);
         frmUniv.tblUniversidad.getColumnModel().getColumn(2).setPreferredWidth(30);
@@ -214,7 +213,7 @@ public class UniversidadControlador {
         }
     };
     
-    public void tblUniversidadMouseClicked(MouseEvent e) {
+    private void tblUniversidadMouseClicked(MouseEvent e) {
         if( e.getButton()== 1)//boton izquierdo
         {
              int fila = frmUniv.tblUniversidad.getSelectedRow();

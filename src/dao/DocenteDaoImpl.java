@@ -5,9 +5,7 @@
  */
 package dao;
 
-import java.util.Iterator;
 import java.util.List;
-import javax.swing.JOptionPane;
 import modelo.Docente;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -23,6 +21,16 @@ public class DocenteDaoImpl implements DocenteDao {
 
     private Session sesion;
     private Transaction tx;
+    
+    private void iniciaOperacion() throws HibernateException {
+        sesion = HibernateUtil.getSessionFactory().openSession();
+        tx = sesion.beginTransaction();
+    }
+
+    private void manejaExcepcion(HibernateException he) throws HibernateException {
+        tx.rollback();
+        throw new HibernateException("Ocurrió un error en DocenteDao", he);
+    }
 
     @Override
     public void guardarDocente(Docente d) {
@@ -115,7 +123,6 @@ public class DocenteDaoImpl implements DocenteDao {
     @Override
     public String obtenerContraseniaDocente(String usuario) throws HibernateException {
         String contrase;
-//        JOptionPane.showMessageDialog(null, "valor del usuario es " + usuario);
         try {
             iniciaOperacion();
             contrase = (String) sesion.createQuery("select d.contrasena from Docente d where d.usuario = :usuario").setString("usuario", usuario).uniqueResult();
@@ -124,15 +131,4 @@ public class DocenteDaoImpl implements DocenteDao {
         }
         return contrase;
     }
-
-    private void iniciaOperacion() throws HibernateException {
-        sesion = HibernateUtil.getSessionFactory().openSession();
-        tx = sesion.beginTransaction();
-    }
-
-    private void manejaExcepcion(HibernateException he) throws HibernateException {
-        tx.rollback();
-        throw new HibernateException("Ocurrió un error en DocenteDao", he);
-    }
-
 }

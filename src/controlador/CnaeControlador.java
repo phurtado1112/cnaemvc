@@ -6,6 +6,7 @@
 package controlador;
 
 import dao.ActividadDaoImpl;
+import dao.DocenteDaoImpl;
 import dao.UniversidadDaoImpl;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -87,8 +88,10 @@ public class CnaeControlador {
             }
         }
 
-        if (ev.getSource() == frmMenu.MenuDocente) {
+        if (ev.getSource() == frmMenu.MnuDocente) {
+            DocenteDaoImpl ddi = new DocenteDaoImpl();
             DocenteIF docenteVent = new DocenteIF();
+            DocenteControlador docctl = new DocenteControlador(docenteVent, ddi);
             centerJIF(docenteVent);
             frmMenu.Escritorio.add(docenteVent);
             docenteVent.toFront();
@@ -350,6 +353,7 @@ public class CnaeControlador {
         }
 
         if (ev.getSource() == frmMenu.MnuActividad) {
+            JOptionPane.showConfirmDialog(null, "Estoy en el menú actividad");
             ActividadDaoImpl adi = new ActividadDaoImpl();
             ActividadIF actividadVent = new ActividadIF();
             ActividadControlador actctl = new ActividadControlador(actividadVent,adi);
