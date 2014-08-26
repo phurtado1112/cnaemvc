@@ -120,7 +120,7 @@ public class ActividadControlador {
         List<Actividad> listauniv = adi.obtenListaActividades();
         listauniv.stream().forEach((asign) -> {
             modelo.addRow(new Object[]{
-                asign.getIdactividad(), asign.getActividad(),
+                asign.getIdactividad(), asign.getActividad()
             });
         });
     }

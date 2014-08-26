@@ -1,16 +1,5 @@
 package vista;
 
-import clases.Docente;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
-import util.Conecta;
-import util.Valida;
-
 /**
  *
  * @author PabloAntonio
@@ -130,16 +119,35 @@ public class DocenteIF extends javax.swing.JInternalFrame {
 
         tblDocente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5"
+                "ID", "Nombre", "Apellidos", "Usuario", "Contraseña"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblDocente);
+        if (tblDocente.getColumnModel().getColumnCount() > 0) {
+            tblDocente.getColumnModel().getColumn(0).setResizable(false);
+            tblDocente.getColumnModel().getColumn(1).setResizable(false);
+            tblDocente.getColumnModel().getColumn(2).setResizable(false);
+            tblDocente.getColumnModel().getColumn(3).setResizable(false);
+            tblDocente.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         btnNuevo.setText("Nuevo");
 

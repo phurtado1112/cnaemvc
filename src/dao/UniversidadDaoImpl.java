@@ -99,5 +99,4 @@ public class UniversidadDaoImpl implements UniversidadDao {
 
         return listaUniversidades;
     }
-
 }

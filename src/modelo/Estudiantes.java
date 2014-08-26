@@ -31,6 +31,7 @@ public class Estudiantes  implements java.io.Serializable {
      private String apellidoE;
      private String carnet;
      private Integer celular;
+     private String email;
      private Set asistencias = new HashSet(0);
      private Set notases = new HashSet(0);
 
@@ -113,6 +114,15 @@ public class Estudiantes  implements java.io.Serializable {
     
     public void setCelular(Integer celular) {
         this.celular = celular;
+    }
+    
+    @Column(name="email")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 @OneToMany(fetch=FetchType.LAZY, mappedBy="estudiantes")

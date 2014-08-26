@@ -15,7 +15,6 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Universidad;
 import util.Valida;
 import vista.UniversidadIF;
-//import vista.inicio.Cnae;
 
 /**
  *
@@ -26,7 +25,6 @@ public class UniversidadControlador {
     UniversidadDaoImpl udi;
     Universidad univ = new Universidad();
     Valida va = new Valida();
-//    Cnae cnae = new Cnae();
     DefaultTableModel modelo;
 
     public UniversidadControlador() {
@@ -225,5 +223,4 @@ public class UniversidadControlador {
         }
         BotonesClick();
     }
-
 }

@@ -6,7 +6,9 @@
 package controlador;
 
 import dao.ActividadDaoImpl;
+import dao.ActividadDetDaoImpl;
 import dao.DocenteDaoImpl;
+import dao.EstudianteDaoImpl;
 import dao.UniversidadDaoImpl;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -173,12 +175,44 @@ public class CnaeControlador {
         }
 
         if (ev.getSource() == frmMenu.MnuEstudiantes) {
+            JOptionPane.showConfirmDialog(null, "Estoy en el menú E");            
+            EstudianteDaoImpl edi = new EstudianteDaoImpl();
             EstudianteIF estudianteVent = new EstudianteIF();
+            EstudianteControlador estctl = new EstudianteControlador(estudianteVent, edi);
             centerJIF(estudianteVent);
             frmMenu.Escritorio.add(estudianteVent);
             estudianteVent.toFront();
             try {
                 estudianteVent.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Cnae.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (ev.getSource() == frmMenu.MnuActividad) {
+//            JOptionPane.showConfirmDialog(null, "Estoy en el menú actividad");
+            ActividadDaoImpl adi = new ActividadDaoImpl();
+            ActividadIF actividadVent = new ActividadIF();
+            ActividadControlador actctl = new ActividadControlador(actividadVent,adi);
+            centerJIF(actividadVent);
+            frmMenu.Escritorio.add(actividadVent);
+            actividadVent.toFront();
+            try {
+                actividadVent.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Cnae.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (ev.getSource() == frmMenu.MnuActividadDet) {
+            ActividadDetDaoImpl addi = new ActividadDetDaoImpl();
+            ActividadDetIF actividadDetVent = new ActividadDetIF();
+            ActividadDetControlador actdetctl = new ActividadDetControlador(actividadDetVent, addi);
+            centerJIF(actividadDetVent);
+            frmMenu.Escritorio.add(actividadDetVent);
+            actividadDetVent.toFront();
+            try {
+                actividadDetVent.setSelected(true);
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(Cnae.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -208,6 +242,21 @@ public class CnaeControlador {
             }
         }
 
+        if (ev.getSource() == frmMenu.MnuUniversidades) {
+//            JOptionPane.showConfirmDialog(null, "Estoy en el menú Universidad");
+            UniversidadDaoImpl udi = new UniversidadDaoImpl();
+            UniversidadIF universidadVent = new UniversidadIF();
+            UniversidadControlador unictl = new UniversidadControlador(universidadVent, udi);
+            centerJIF(universidadVent);
+            frmMenu.Escritorio.add(universidadVent);
+            universidadVent.toFront();
+            try {
+                universidadVent.setSelected(true);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Cnae.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
         if (ev.getSource() == frmMenu.MnuHelp) {
 
         }
@@ -347,48 +396,6 @@ public class CnaeControlador {
             respal.toFront();
             try {
                 respal.setSelected(true);
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(Cnae.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (ev.getSource() == frmMenu.MnuActividad) {
-            JOptionPane.showConfirmDialog(null, "Estoy en el menú actividad");
-            ActividadDaoImpl adi = new ActividadDaoImpl();
-            ActividadIF actividadVent = new ActividadIF();
-            ActividadControlador actctl = new ActividadControlador(actividadVent,adi);
-            centerJIF(actividadVent);
-            frmMenu.Escritorio.add(actividadVent);
-            actividadVent.toFront();
-            try {
-                actividadVent.setSelected(true);
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(Cnae.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (ev.getSource() == frmMenu.MnuActividadDet) {
-            ActividadDetIF actividadDetVent = new ActividadDetIF();
-
-            centerJIF(actividadDetVent);
-            frmMenu.Escritorio.add(actividadDetVent);
-            actividadDetVent.toFront();
-            try {
-                actividadDetVent.setSelected(true);
-            } catch (PropertyVetoException ex) {
-                Logger.getLogger(Cnae.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-        if (ev.getSource() == frmMenu.MnuUniversidades) {
-            UniversidadDaoImpl udi = new UniversidadDaoImpl();
-            UniversidadIF universidadVent = new UniversidadIF();
-            UniversidadControlador unictl = new UniversidadControlador(universidadVent, udi);
-            centerJIF(universidadVent);
-            frmMenu.Escritorio.add(universidadVent);
-            universidadVent.toFront();
-            try {
-                universidadVent.setSelected(true);
             } catch (PropertyVetoException ex) {
                 Logger.getLogger(Cnae.class.getName()).log(Level.SEVERE, null, ex);
             }
