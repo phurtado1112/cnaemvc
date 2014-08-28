@@ -1,4 +1,4 @@
-package vista.inicio;
+package vista;
 
 import controlador.SesionInicioControlador;
 import javax.swing.JFrame;

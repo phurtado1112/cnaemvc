@@ -6,10 +6,18 @@
 
 package dao;
 
+import java.util.List;
+import modelo.Carrera;
+import org.hibernate.HibernateException;
+
 /**
  *
  * @author PabloAntonio
  */
 public interface CarreraDao {
-    
+    public void guardarCarrera(Carrera c);
+    public void actualizarCarrera(Carrera c);
+    public void eliminarCarrera(Carrera c);
+    public Carrera obtenCarrera(int idcarrera) throws HibernateException;
+    public List<Carrera> obtenListaCarreras() throws HibernateException;
 }

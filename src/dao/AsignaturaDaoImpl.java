@@ -8,7 +8,6 @@ package dao;
 
 import java.util.List;
 import modelo.Asignatura;
-import modelo.Docente;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -21,6 +20,16 @@ import util.HibernateUtil;
 public class AsignaturaDaoImpl implements AsignaturaDao {
     private Session sesion;
     private Transaction tx;
+    
+    private void iniciaOperacion() throws HibernateException {
+        sesion = HibernateUtil.getSessionFactory().openSession();
+        tx = sesion.beginTransaction();
+    }
+
+    private void manejaExcepcion(HibernateException he) throws HibernateException {
+        tx.rollback();
+        throw new HibernateException("Ocurrió un error en DocenteDao", he);
+    }
 
     @Override
     public void guardarAsignatura(Asignatura a) {
@@ -79,14 +88,12 @@ public class AsignaturaDaoImpl implements AsignaturaDao {
     @Override
     public List<Asignatura> obtenListaAsignaturas() throws HibernateException {
         List<Asignatura> listaAsignaturas = null;
-
         try {
             iniciaOperacion();
             listaAsignaturas = sesion.createQuery("from Asignaturas").list();
         } finally {
             sesion.close();
         }
-
         return listaAsignaturas;
     }
 
@@ -100,16 +107,5 @@ public class AsignaturaDaoImpl implements AsignaturaDao {
             sesion.close();
         }
         return asignatura;
-    }
-    
-    private void iniciaOperacion() throws HibernateException {
-        sesion = HibernateUtil.getSessionFactory().openSession();
-        tx = sesion.beginTransaction();
-    }
-
-    private void manejaExcepcion(HibernateException he) throws HibernateException {
-        tx.rollback();
-        throw new HibernateException("Ocurrió un error en DocenteDao", he);
-    }
-    
+    }    
 }

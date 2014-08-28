@@ -63,11 +63,11 @@ public class DocenteControlador {
         va.SoloLetras(frmDoce.txtNombre);
         va.SeleccionarTodo(frmDoce.txtNombre);
         frmDoce.txtApellido.setEnabled(true);
-        va.LetrasSinEspacios(frmDoce.txtApellido);
+        va.SoloLetras(frmDoce.txtApellido);
         va.SeleccionarTodo(frmDoce.txtApellido);
         frmDoce.txtNombre.requestFocus();
         frmDoce.txtUsuario.setEnabled(true);
-        va.LetrasSinEspacios(frmDoce.txtUsuario);
+        va.SoloLetras(frmDoce.txtUsuario);
         va.SeleccionarTodo(frmDoce.txtUsuario);
         frmDoce.pswContrasena.setEnabled(true);
     }
@@ -76,12 +76,14 @@ public class DocenteControlador {
         frmDoce.txtNombre.setEnabled(false);
         frmDoce.txtApellido.setEnabled(false);
         frmDoce.txtUsuario.setEnabled(false);
+        frmDoce.pswContrasena.setEnabled(false);
     }
 
     private void limpiar() {
         frmDoce.txtNombre.setText("");
         frmDoce.txtApellido.setText("");
         frmDoce.txtUsuario.setText("");
+        frmDoce.pswContrasena.setText("");
     }
 
     private void BotonesInicio() {

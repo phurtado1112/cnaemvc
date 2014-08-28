@@ -34,27 +34,70 @@ public class FacultadDaoImpl implements FacultadDao{
 
     @Override
     public void guardarFacultad(Facultad f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            sesion.save(f);
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
     }
 
     @Override
     public void actualizarFacultad(Facultad f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            sesion.update(f);
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
     }
 
     @Override
     public void eliminarFacultad(Facultad f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            iniciaOperacion();
+            sesion.delete(f);
+            tx.commit();
+        } catch (HibernateException he) {
+            manejaExcepcion(he);
+            throw he;
+        } finally {
+            sesion.close();
+        }
     }
 
     @Override
     public Facultad obtenFacultad(int idfacultad) throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Facultad facultad = null;
+        try {
+            iniciaOperacion();
+            facultad = (Facultad) sesion.get(Facultad.class, idfacultad);
+        } finally {
+            sesion.close();
+        }
+        return facultad;
     }
 
     @Override
     public List<Facultad> obtenListaFacultad() throws HibernateException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<Facultad> listaFacultades = null;
+
+        try {
+            iniciaOperacion();
+            listaFacultades = sesion.createQuery("from Facultad").list();
+        } finally {
+            sesion.close();
+        }
+
+        return listaFacultades;
     }
     
 }

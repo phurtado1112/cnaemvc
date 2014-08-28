@@ -1,150 +1,19 @@
 package vista;
 
-import clases.Facultad;
-import clases.Universidad;
-import java.awt.HeadlessException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
-import javax.swing.table.DefaultTableModel;
-import util.Conecta;
-import util.Valida;
 
 /**
  *
  * @author PabloAntonio
  */
 public class FacultadIF extends javax.swing.JInternalFrame {
-    DefaultTableModel model;
-    DefaultComboBoxModel<String> modeloCombo;
-    Conecta cnx = new Conecta();
-    Valida va = new Valida();
-    Statement stm;
-    ResultSet rs;
-    PreparedStatement ps;    
-    Universidad u = new Universidad();
-    Facultad f = new Facultad();
-
+  
     /**
      * Creates new form FacultadIF
      */
     public FacultadIF() {
         initComponents();
-        //cbxUniversidad.setModel(new DefaultComboBoxModel(new String[] {}));
-        this.llenarCB();
-        cnx.Conecta();
-        Deshabilitar();
-        LlenarTabla();
-        BotonesInicio();
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
-    public void limpiar(){
-        txtFacultad.setText("");
-        cbxUniversidad.removeAllItems();
-    }
-    
-    private void Deshabilitar() {
-        txtFacultad.setEnabled(false);
-        cbxUniversidad.removeAllItems();
-        cbxUniversidad.setEnabled(false);
-    }
-    
-    public void Habilitar(){
-        txtFacultad.setEnabled(true);
-        va.SoloLetras(txtFacultad);
-        va.SeleccionarTodo(txtFacultad);
-        txtFacultad.requestFocus();
-        cbxUniversidad.setEnabled(true);
-    }
-    
-    private void BotonesInicio(){
-        btnNuevo.setEnabled(true);
-        btnActualizar.setEnabled(false);
-        btnEliminar.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        btnCancelar.setEnabled(false);
-    }
-    
-    private void BotonesNuevo(){
-        btnNuevo.setEnabled(false);
-        btnActualizar.setEnabled(false);
-        btnEliminar.setEnabled(false);
-        btnGuardar.setEnabled(true);
-        btnCancelar.setEnabled(true);
-    }
-    
-    private void BotonesClick(){
-        btnNuevo.setEnabled(false);
-        btnGuardar.setEnabled(false);
-        btnActualizar.setEnabled(true);
-        btnCancelar.setEnabled(true);
-        btnEliminar.setEnabled(true);
-    }
-    
-    public final void llenarCB() {
-        cnx.Conecta();
-        try {            
-            modeloCombo = new DefaultComboBoxModel<String>();            
-            String SQL = "select nombreU from universidad";
-            stm = cnx.conn.createStatement();            
-            rs = stm.executeQuery(SQL);
-            while (rs.next()) {
-                modeloCombo.addElement(rs.getString("nombreU"));
-            }
-            rs.close();
-            cbxUniversidad.setModel(modeloCombo);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error LlenarCB: " + ex.getMessage());
-        } finally {
-            cnx.Desconecta();
-        }
-    }
-    //Llena con datos el JTable con un consulta
-    private void LlenarTabla() {
-        int[] anchos = {30, 200, 200}; 
-        cnx.Conecta();
-        try{
-            String [] titulos ={"ID","Facultad","Universidad"};
-            String SQL = "Select * from facultad_view";
-            model = new DefaultTableModel(null, titulos);
-            stm = cnx.conn.createStatement();
-            rs = stm.executeQuery(SQL);
-            String [] fila = new String[3];
-            while(rs.next()){
-                fila[0] = rs.getString("idfacultad");
-                fila[1] = rs.getString("nombreF");
-                fila[2] = rs.getString("nombreU");
-                model.addRow(fila);
-            }
-            
-            //Dimensiona el ancho de las columnas de la tabla
-            tblFacultad.setModel(model);
-            for(int i = 0; i < tblFacultad.getColumnCount(); i++) {
-                tblFacultad.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-            }
-        } catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "Error LlenarTabla Facultad: " + e.getMessage());
-        } finally {
-            cnx.Desconecta();
-        }
-    }
-    
-    private boolean validar(){
-        boolean val;
-        if(txtFacultad.getText().trim().length()==0){ //Valida campo Nombre
-            JOptionPane.showMessageDialog(this, "El campo de texto Facultad está vacío,por favor llenarlo");
-            val = false;
-        } else {
-            val=true;
-        }       
-        return val;
-    }
-    
     /*
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -215,74 +84,48 @@ public class FacultadIF extends javax.swing.JInternalFrame {
 
         tblFacultad.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3"
+                "ID", "Facultad", "Universidad"
             }
-        ));
-        tblFacultad.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblFacultadMouseClicked(evt);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblFacultad);
         if (tblFacultad.getColumnModel().getColumnCount() > 0) {
-            tblFacultad.getColumnModel().getColumn(0).setMinWidth(50);
-            tblFacultad.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tblFacultad.getColumnModel().getColumn(0).setMaxWidth(55);
+            tblFacultad.getColumnModel().getColumn(0).setResizable(false);
+            tblFacultad.getColumnModel().getColumn(0).setPreferredWidth(15);
+            tblFacultad.getColumnModel().getColumn(1).setResizable(false);
+            tblFacultad.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tblFacultad.getColumnModel().getColumn(2).setResizable(false);
+            tblFacultad.getColumnModel().getColumn(2).setPreferredWidth(150);
         }
 
         btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
 
         btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
 
         btnEliminar.setText("Eliminar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
 
         btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
 
         btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
 
         btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -290,8 +133,8 @@ public class FacultadIF extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jScrollPane1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(btnNuevo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnActualizar)
@@ -303,15 +146,15 @@ public class FacultadIF extends javax.swing.JInternalFrame {
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(btnCancelar)
@@ -319,118 +162,25 @@ public class FacultadIF extends javax.swing.JInternalFrame {
                     .addComponent(btnActualizar)
                     .addComponent(btnNuevo)
                     .addComponent(btnEliminar))
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        Habilitar();
-        limpiar();
-        llenarCB();
-        BotonesNuevo();
-    }//GEN-LAST:event_btnNuevoActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        if (validar()==true){            
-        int i = JOptionPane.showConfirmDialog(null, "Desea Actualizar?","Confirmar",
-            JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
-            if(i==JOptionPane.OK_OPTION){
-                int fila = tblFacultad.getSelectedRow();
-                f.setnombreF(this.txtFacultad.getText().trim());
-                f.setIduniversidad(u.consultaIdU(this.cbxUniversidad.getSelectedItem().toString().trim()));
-                f.setIdfacultad(Integer.parseInt(this.tblFacultad.getValueAt(fila, 0).toString()));
-                f.ActualizarFacultad();
-            }
-            LlenarTabla();
-            limpiar();
-            Deshabilitar();
-            BotonesInicio();
-        }
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int i = JOptionPane.showConfirmDialog(null, "Desea Eliminar?","Confirmar",
-            JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
-        if(i==JOptionPane.OK_OPTION){
-            int fila = tblFacultad.getSelectedRow();
-            f.setIdfacultad(Integer.parseInt(tblFacultad.getValueAt(fila, 0).toString()));
-            f.EliminarFacultad();
-        limpiar();
-        Deshabilitar();
-        LlenarTabla();
-        BotonesInicio();
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (validar()==true){        
-        int i = JOptionPane.showConfirmDialog(null, "Desea Guardar?","Confirmar",
-            JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
-        if(i==JOptionPane.OK_OPTION){
-            f.setnombreF(txtFacultad.getText().trim());
-            f.setIduniversidad(u.consultaIdU(this.cbxUniversidad.getSelectedItem().toString().trim()));            
-            f.GuardarFacultad();
-        }
-        LlenarTabla();
-        limpiar();
-        Deshabilitar();
-        BotonesInicio();
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        limpiar();
-        Deshabilitar();
-        LlenarTabla();
-        BotonesInicio();
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        int i = JOptionPane.showConfirmDialog(null, "Desea Salir?","Confirmar",
-            JOptionPane.OK_CANCEL_OPTION,JOptionPane.ERROR_MESSAGE);
-        if(i==JOptionPane.OK_OPTION){
-            this.doDefaultCloseAction();
-        }
-    }//GEN-LAST:event_btnSalirActionPerformed
-
-    private void tblFacultadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFacultadMouseClicked
-        if (evt.getButton()==1){
-            int fila = tblFacultad.getSelectedRow();
-            Habilitar();
-            llenarCB();
-            BotonesClick();
-            cnx.Conecta();
-            try{                                               
-                String SQL = "Select * from facultad where idfacultad = " + tblFacultad.getValueAt(fila, 0);
-                stm = cnx.conn.createStatement();
-                rs = stm.executeQuery(SQL);
-                
-                rs.next();
-                txtFacultad.setText(rs.getString("nombreF"));                
-                cbxUniversidad.setSelectedItem(u.consultaUniversidad(rs.getInt("iduniversidad")));
-            } catch(SQLException | HeadlessException e){
-                JOptionPane.showMessageDialog(null, "Error Facultad Mouse Cliked: " + e.getMessage());
-            } finally {
-                cnx.Desconecta();
-            }
-        }
-    }//GEN-LAST:event_tblFacultadMouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton btnSalir;
-    private javax.swing.JComboBox<String> cbxUniversidad;
+    public javax.swing.JButton btnActualizar;
+    public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnEliminar;
+    public javax.swing.JButton btnGuardar;
+    public javax.swing.JButton btnNuevo;
+    public javax.swing.JButton btnSalir;
+    public javax.swing.JComboBox cbxUniversidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblFacultad;
-    private javax.swing.JTextField txtFacultad;
+    public javax.swing.JTable tblFacultad;
+    public javax.swing.JTextField txtFacultad;
     // End of variables declaration//GEN-END:variables
 }

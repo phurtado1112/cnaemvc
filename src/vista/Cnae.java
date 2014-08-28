@@ -1,4 +1,4 @@
-package vista.inicio;
+package vista;
 
 /**
  *
@@ -43,7 +43,7 @@ public final class Cnae extends javax.swing.JFrame {
         MnuDocente = new javax.swing.JMenuItem();
         MnuPrReportes = new javax.swing.JMenu();
         MnuRepAsistencia = new javax.swing.JMenuItem();
-        MnuNotas = new javax.swing.JMenuItem();
+        MnuRepNotas = new javax.swing.JMenuItem();
         mnuCatalogos = new javax.swing.JMenu();
         MnuRepEstudiantes = new javax.swing.JMenuItem();
         jSeparator5 = new javax.swing.JPopupMenu.Separator();
@@ -149,9 +149,9 @@ public final class Cnae extends javax.swing.JFrame {
         MnuRepAsistencia.setText("Asistencia");
         MnuPrReportes.add(MnuRepAsistencia);
 
-        MnuNotas.setMnemonic('n');
-        MnuNotas.setText("Notas");
-        MnuPrReportes.add(MnuNotas);
+        MnuRepNotas.setMnemonic('n');
+        MnuRepNotas.setText("Notas");
+        MnuPrReportes.add(MnuRepNotas);
 
         mnuCatalogos.setMnemonic('c');
         mnuCatalogos.setText("Catálogos");
@@ -257,7 +257,6 @@ public final class Cnae extends javax.swing.JFrame {
     public javax.swing.JMenuItem MnuEvaluacion;
     public javax.swing.JMenuItem MnuFacultades;
     public javax.swing.JMenuItem MnuHelp;
-    public javax.swing.JMenuItem MnuNotas;
     public javax.swing.JMenu MnuPrArchivo;
     public javax.swing.JMenu MnuPrAyuda;
     public javax.swing.JMenu MnuPrCatalogo;
@@ -273,6 +272,7 @@ public final class Cnae extends javax.swing.JFrame {
     public javax.swing.JMenuItem MnuRepDocente;
     public javax.swing.JMenuItem MnuRepEstructuraEvaluacion;
     public javax.swing.JMenuItem MnuRepEstudiantes;
+    public javax.swing.JMenuItem MnuRepNotas;
     public javax.swing.JMenuItem MnuRespaldoDatos;
     public javax.swing.JMenuItem MnuSalir;
     public javax.swing.JMenuItem MnuUniversidades;

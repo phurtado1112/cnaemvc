@@ -11,7 +11,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Asignatura;
-import vista.inicio.SeleccionarAsignatura;
+import vista.SeleccionarAsignatura;
 
 /**
  *

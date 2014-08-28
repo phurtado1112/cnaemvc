@@ -82,7 +82,6 @@ public class UniversidadDaoImpl implements UniversidadDao {
         } finally {
             sesion.close();
         }
-
         return universidad;
     }
 
@@ -96,7 +95,6 @@ public class UniversidadDaoImpl implements UniversidadDao {
         } finally {
             sesion.close();
         }
-
         return listaUniversidades;
     }
 }

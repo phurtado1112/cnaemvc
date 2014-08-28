@@ -1,4 +1,4 @@
-package vista.inicio;
+package vista;
 
 public class IngresoInicialDocente extends javax.swing.JFrame {
 

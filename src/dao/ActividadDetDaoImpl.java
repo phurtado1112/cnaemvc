@@ -90,7 +90,6 @@ public class ActividadDetDaoImpl implements ActividadDetDao{
     @Override
     public List<Actividaddet> obtenListaActividaddets() throws HibernateException {
         List<Actividaddet> listaActividaddets = null;
-
         try {
             iniciaOperacion();
             listaActividaddets = sesion.createQuery("from Actividaddet").list();

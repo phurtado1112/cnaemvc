@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.hibernate.HibernateException;
-import vista.inicio.SesionInicio;
+import vista.SesionInicio;
 
 /**
  *

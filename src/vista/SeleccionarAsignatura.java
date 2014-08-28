@@ -1,6 +1,7 @@
 
-package vista.inicio;
+package vista;
 
+import vista.Cnae;
 import clases.Asignatura;
 import clases.Carrera;
 import clases.Facultad;

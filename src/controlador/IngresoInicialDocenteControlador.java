@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import modelo.Docente;
 import util.Globales;
-import vista.inicio.IngresoInicialDocente;
+import vista.IngresoInicialDocente;
 
 /**
  *

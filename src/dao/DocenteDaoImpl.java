@@ -18,7 +18,6 @@ import util.HibernateUtil;
  * @author PabloAntonio
  */
 public class DocenteDaoImpl implements DocenteDao {
-
     private Session sesion;
     private Transaction tx;
     
@@ -89,17 +88,14 @@ public class DocenteDaoImpl implements DocenteDao {
     @Override
     public List<Docente> obtenListaDocentes() throws HibernateException {
         List<Docente> listaDocentes = null;
-
         try {
             iniciaOperacion();
             listaDocentes = sesion.createQuery("from Docente").list();
         } finally {
             sesion.close();
         }
-
         return listaDocentes;
     }
-    
     
     @Override
     public Docente verificarDatos(Docente d) throws HibernateException {
@@ -116,7 +112,6 @@ public class DocenteDaoImpl implements DocenteDao {
         } catch (HibernateException e) {
             throw e;
         }
-
         return doc;
     }
 
