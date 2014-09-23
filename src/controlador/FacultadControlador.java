@@ -6,6 +6,7 @@
 package controlador;
 
 import dao.FacultadDaoImpl;
+import dao.UniversidadDaoImpl;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -13,8 +14,6 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import modelo.Actividad;
-import modelo.Actividaddet;
 import modelo.Facultad;
 import modelo.Universidad;
 import util.Valida;
@@ -29,9 +28,11 @@ public class FacultadControlador {
     FacultadIF frmFac;
     FacultadDaoImpl fdi;
     Facultad facu = new Facultad();
+    Universidad univ = new Universidad();
+    UniversidadDaoImpl udi;
     Valida va = new Valida();
     DefaultTableModel modelo;
-    DefaultComboBoxModel<String> modeloCombo;
+    DefaultComboBoxModel<String> modeloComboU;
 
     public FacultadControlador() {
 
@@ -48,6 +49,7 @@ public class FacultadControlador {
         BotonesInicio();
         Deshabilitar();
         defaultTableModel();
+        LlenarTabla();
         LlenarTabla();
 
         frmFac.btnActualizar.addActionListener(Evento);
@@ -78,6 +80,7 @@ public class FacultadControlador {
         frmFac.txtFacultad.setEnabled(true);
         va.SoloLetras(frmFac.txtFacultad);
         va.SeleccionarTodo(frmFac.txtFacultad);
+        frmFac.cbxUniversidad.setEnabled(true);
         frmFac.txtFacultad.requestFocus();
     }
 
@@ -133,11 +136,11 @@ public class FacultadControlador {
         });
     }
 
-    public final void llenarCB() {
-        modeloCombo = new DefaultComboBoxModel<>();
-        List<Facultad> listafac = fdi.obtenListaFacultad();
-        listafac.stream().forEach((asign) -> {
-            modeloCombo.addElement(asign.getUniversidad().getNombreU());
+    private void llenarCB() {
+        modeloComboU = new DefaultComboBoxModel<>();
+        List<Universidad> listauni = udi.obtenListaUniversidades();
+        listauni.stream().forEach((asign) -> {
+            modeloComboU.addElement(asign.getNombreU());
         });
     }
 

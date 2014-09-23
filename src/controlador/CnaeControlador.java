@@ -7,7 +7,11 @@ package controlador;
 
 import dao.ActividadDaoImpl;
 import dao.ActividadDetDaoImpl;
+import dao.AsignaturaDaoImpl;
+import dao.CalendarioDaoImpl;
+import dao.CarreraDaoImpl;
 import dao.DocenteDaoImpl;
+import dao.EstructuraEvaluacionDaoImpl;
 import dao.EstudianteDaoImpl;
 import dao.FacultadDaoImpl;
 import dao.UniversidadDaoImpl;
@@ -131,7 +135,9 @@ public class CnaeControlador {
         }
 
         if (ev.getSource() == frmMenu.MnuCarreras) {
+            CarreraDaoImpl cdi = new CarreraDaoImpl();
             CarreraIF carreraVent = new CarreraIF();
+            CarreraControlador carctl = new CarreraControlador(carreraVent, cdi);
             centerJIF(carreraVent);
             frmMenu.Escritorio.add(carreraVent);
             carreraVent.toFront();
@@ -143,7 +149,9 @@ public class CnaeControlador {
         }
         
         if (ev.getSource() == frmMenu.MnuAsignatura) {
+            AsignaturaDaoImpl adi = new AsignaturaDaoImpl();
             AsignaturaIF asignaturaVent = new AsignaturaIF();
+            AsignaturaControlador asictl = new AsignaturaControlador(asignaturaVent, adi);
             centerJIF(asignaturaVent);
             frmMenu.Escritorio.add(asignaturaVent);
             asignaturaVent.toFront();
@@ -184,7 +192,9 @@ public class CnaeControlador {
         }
 
         if (ev.getSource() == frmMenu.MnuEstructuraEvaluacion) {
+            EstructuraEvaluacionDaoImpl eedi = new EstructuraEvaluacionDaoImpl();
             EstructuraEvaluacionIF estructuraVent = new EstructuraEvaluacionIF();
+            EstructuraEvaluacionControlador esectl = new EstructuraEvaluacionControlador(estructuraVent, eedi);
             centerJIF(estructuraVent);
             frmMenu.Escritorio.add(estructuraVent);
             estructuraVent.toFront();
@@ -196,7 +206,9 @@ public class CnaeControlador {
         }
 
         if (ev.getSource() == frmMenu.MnuCalendario) {
+            CalendarioDaoImpl cdi = new CalendarioDaoImpl();
             CalendarioIF calendarioVent = new CalendarioIF();
+            CalendarioControlador calctl = new CalendarioControlador(calendarioVent, cdi);
             centerJIF(calendarioVent);
             frmMenu.Escritorio.add(calendarioVent);
             calendarioVent.toFront();
